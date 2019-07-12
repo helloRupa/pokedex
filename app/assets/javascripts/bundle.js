@@ -300,10 +300,7 @@ var test = __webpack_require__(/*! ./test_file */ "./frontend/test_file.js");
 
 document.addEventListener('DOMContentLoaded', function () {
   var root = document.getElementById('root');
-  var store = Object(_store_store__WEBPACK_IMPORTED_MODULE_2__["default"])(); // TEST CODE, DELETE WHEN DONE!!
-
-  window.getState = store.getState;
-  window.dispatch = store.dispatch;
+  var store = Object(_store_store__WEBPACK_IMPORTED_MODULE_2__["default"])();
   react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_root__WEBPACK_IMPORTED_MODULE_3__["default"], {
     store: store
   }), root);
