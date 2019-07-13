@@ -1,8 +1,5 @@
 import React from 'react';
-
-const thumbStyle = {
-  height: '35px',
-};
+import PokemonIndexItem from './pokemon_index_item';
 
 export default class PokemonIndex extends React.Component {
   componentDidMount() {
@@ -11,14 +8,13 @@ export default class PokemonIndex extends React.Component {
 
   render() {
     return (
-      <ul>
-        { this.props.pokemon.map((poke, idx) => 
-          <li key={idx}>
-            { poke.name }
-            <img src={poke.image_url} style={thumbStyle}></img>
-          </li>
-        ) }
-      </ul>
+      <section className="pokedex">
+        <ul>
+          { this.props.pokemon.map((poke) => 
+            <PokemonIndexItem poke={poke} key={poke.id} />
+          ) }
+        </ul>
+      </section>
     );
   }
 }
