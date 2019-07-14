@@ -10,5 +10,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const root = document.getElementById('root');
   const store = configureStore();
 
+// TEST CODE DELETE WHEN DONE!!
+window.dispatch = store.dispatch;
+window.getState = store.getState;
   ReactDOM.render(<Root store={store} />, root);
 });
