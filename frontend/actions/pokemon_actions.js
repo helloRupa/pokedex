@@ -1,4 +1,5 @@
 import * as APIUtil from '../util/api_util';
+import { receiveItems } from './items_actions';
 
 export const RECEIVE_ALL_POKEMON = 'RECEIVE_ALL_POKEMON';
 export const RECEIVE_POKEMON = 'RECEIVE_POKEMON';
@@ -10,7 +11,7 @@ export const receiveAllPokemon = (pokemon) => ({
 
 export const receivePokemon = (pokemon) => ({
   type: RECEIVE_POKEMON,
-  pokemon: pokemon.pokemon
+  pokemon: pokemon
 });
 
 export const requestAllPokemon = () => (dispatch) => (
@@ -20,5 +21,8 @@ export const requestAllPokemon = () => (dispatch) => (
 
 export const requestPokemon = (id) => (dispatch) => (
   APIUtil.fetchPokemon(id)
-    .then(pokemon => dispatch(receivePokemon(pokemon)))
+    .then((pokemon) => {
+      dispatch(receivePokemon(pokemon.pokemon));
+      dispatch(receiveItems(pokemon.items));
+    })
 );
