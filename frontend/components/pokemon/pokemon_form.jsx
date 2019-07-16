@@ -1,25 +1,6 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 
-const types = [
-  'fire',
-  'electric',
-  'normal',
-  'ghost',
-  'psychic',
-  'water',
-  'bug',
-  'dragon',
-  'grass',
-  'fighting',
-  'ice',
-  'flying',
-  'poison',
-  'ground',
-  'rock',
-  'steel'
-];
-
 class PokemonForm extends React.Component {
   constructor(props) {
     super(props);
@@ -27,6 +8,7 @@ class PokemonForm extends React.Component {
     this.update = this.update.bind(this);
     this.handleMoves = this.handleMoves.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.displayErrors = this.displayErrors.bind(this);
   }
 
   update(e) {
@@ -39,6 +21,7 @@ class PokemonForm extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
+    this.props.clearPokemonErrors();
 
     this.props.createPokemon(this.state)
       .then((pokemon) => {
@@ -58,9 +41,14 @@ class PokemonForm extends React.Component {
     }
   }
 
+  displayErrors() {
+    return this.props.errors.join(' | ');
+  }
+
   render() {
     return (
       <form onSubmit={this.handleSubmit}>
+        {this.displayErrors()}
         <div>
           <label htmlFor="name">Name:</label>
           <input type="text" 
@@ -75,7 +63,7 @@ class PokemonForm extends React.Component {
           <label htmlFor="poke_type">Type:</label>
           <select id="poke_type" value={this.state.poke_type} onChange={this.update}>
             <option disabled defaultValue value="">Select Type</option>
-            {types.map((type) => <option value={type} key={type}>{type}</option>)}
+            {window.POKEMON_TYPES.map((type) => <option value={type} key={type}>{type}</option>)}
           </select>
         </div>
 

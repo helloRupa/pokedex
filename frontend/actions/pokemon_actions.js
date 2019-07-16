@@ -3,6 +3,8 @@ import { receiveItems } from './items_actions';
 
 export const RECEIVE_ALL_POKEMON = 'RECEIVE_ALL_POKEMON';
 export const RECEIVE_POKEMON = 'RECEIVE_POKEMON';
+export const RECEIVE_POKEMON_ERRORS = 'RECEIVE_POKEMON_ERRORS';
+export const CLEAR_POKEMON_ERRORS = 'CLEAR_POKEMON_ERRORS';
 
 export const receiveAllPokemon = (pokemon) => ({
   type: RECEIVE_ALL_POKEMON,
@@ -11,7 +13,17 @@ export const receiveAllPokemon = (pokemon) => ({
 
 export const receivePokemon = (pokemon) => ({
   type: RECEIVE_POKEMON,
-  pokemon: pokemon
+  pokemon
+});
+
+export const receivePokemonErrors = (errors) => ({
+  type: RECEIVE_POKEMON_ERRORS,
+  errors
+});
+
+export const clearPokemonErrors = () => ({
+  type: CLEAR_POKEMON_ERRORS,
+  errors: []
 });
 
 export const requestAllPokemon = () => (dispatch) => (
@@ -35,5 +47,7 @@ export const createPokemon = (data) => (dispatch) => (
     .then((pokemon) => {
       dispatch(receivePokemon(pokemon.pokemon));
       return pokemon.pokemon;
+    }, (errors) => {
+      dispatch(receivePokemonErrors(errors.responseJSON));
     })
 );
