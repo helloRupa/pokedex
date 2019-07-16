@@ -10,29 +10,21 @@ const itemStyle = {
 class PokemonDetail extends React.Component {
   constructor(props) {
     super(props);
-    this.setPokeId();
-  }
-
-  setPokeId() {
-    this.pokeId = this.props.match.params.pokemonId;
   }
 
   componentDidMount() {
-    this.setPokeId();
-    this.props.requestPokemon(this.pokeId);
+    this.props.requestPokemon(this.props.pokeId);
   }
 
   componentDidUpdate(prevProps) {
-    this.setPokeId();
-
-    if (prevProps.match.params.pokemonId !== this.pokeId) {
-      this.props.requestPokemon(this.pokeId);
+    if (prevProps.match.params.pokemonId !== this.props.pokeId) {
+      this.props.requestPokemon(this.props.pokeId);
     }
   }
 
   items() {
     return this.props.items.map((item) => {
-      const url = `/pokemon/${this.pokeId}/item/${item.id}`;
+      const url = `/pokemon/${this.props.pokeId}/item/${item.id}`;
 
       return (
         <Link to={url} key={item.id}>
@@ -43,7 +35,7 @@ class PokemonDetail extends React.Component {
   }
 
   render() {
-    const details = this.props.pokemon[this.pokeId];
+    const details = this.props.pokemon;
 
     return (
       <div>
