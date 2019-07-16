@@ -162,7 +162,8 @@ var requestPokemon = function requestPokemon(id) {
 var createPokemon = function createPokemon(data) {
   return function (dispatch) {
     return _util_api_util__WEBPACK_IMPORTED_MODULE_0__["createPokemon"](data).then(function (pokemon) {
-      return dispatch(receivePokemon(pokemon.pokemon));
+      dispatch(receivePokemon(pokemon.pokemon));
+      return pokemon.pokemon;
     });
   };
 };
@@ -363,9 +364,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return PokemonForm; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -385,6 +386,7 @@ function _assertThisInitialized(self) { if (self === void 0) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
 
 
 var types = ['fire', 'electric', 'normal', 'ghost', 'psychic', 'water', 'bug', 'dragon', 'grass', 'fighting', 'ice', 'flying', 'poison', 'ground', 'rock', 'steel'];
@@ -422,8 +424,12 @@ function (_React$Component) {
   }, {
     key: "handleSubmit",
     value: function handleSubmit(e) {
+      var _this2 = this;
+
       e.preventDefault();
-      this.props.createPokemon(this.state);
+      this.props.createPokemon(this.state).then(function (pokemon) {
+        _this2.props.history.push("pokemon/".concat(pokemon.id));
+      });
     }
   }, {
     key: "initialState",
@@ -457,7 +463,11 @@ function (_React$Component) {
         id: "poke_type",
         value: this.state.poke_type,
         onChange: this.update
-      }, types.map(function (type) {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        disabled: true,
+        defaultValue: true,
+        value: ""
+      }, "Select Type"), types.map(function (type) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
           value: type,
           key: type
@@ -504,8 +514,8 @@ function (_React$Component) {
   return PokemonForm;
 }(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
 
-
 ;
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["withRouter"])(PokemonForm));
 
 /***/ }),
 

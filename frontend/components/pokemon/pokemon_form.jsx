@@ -1,4 +1,5 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
 
 const types = [
   'fire',
@@ -19,7 +20,7 @@ const types = [
   'steel'
 ];
 
-export default class PokemonForm extends React.Component {
+class PokemonForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = this.initialState();
@@ -39,7 +40,10 @@ export default class PokemonForm extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
 
-    this.props.createPokemon(this.state);
+    this.props.createPokemon(this.state)
+      .then((pokemon) => {
+        this.props.history.push(`pokemon/${pokemon.id}`);
+      });
   }
 
   initialState() {
@@ -70,6 +74,7 @@ export default class PokemonForm extends React.Component {
         <div>
           <label htmlFor="poke_type">Type:</label>
           <select id="poke_type" value={this.state.poke_type} onChange={this.update}>
+            <option disabled defaultValue value="">Select Type</option>
             {types.map((type) => <option value={type} key={type}>{type}</option>)}
           </select>
         </div>
@@ -121,3 +126,5 @@ export default class PokemonForm extends React.Component {
     );
   }
 };
+
+export default withRouter(PokemonForm);
