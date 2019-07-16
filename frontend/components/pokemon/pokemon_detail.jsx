@@ -1,5 +1,11 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link, Route } from 'react-router-dom';
+import ItemDetailContainer from '../items/item_detail_container';
+
+const itemStyle = {
+  width: '35px',
+  display: 'inline-block',
+};
 
 class PokemonDetail extends React.Component {
   constructor(props) {
@@ -24,6 +30,18 @@ class PokemonDetail extends React.Component {
     }
   }
 
+  items() {
+    return this.props.items.map((item) => {
+      const url = `/pokemon/${this.pokeId}/item/${item.id}`;
+
+      return (
+        <Link to={url} key={item.id}>
+          <img src={item.image_url} style={itemStyle}></img>
+        </Link>
+      );
+    });
+  }
+
   render() {
     const details = this.props.pokemon[this.pokeId];
 
@@ -35,6 +53,11 @@ class PokemonDetail extends React.Component {
         <div>Attack: {details.attack}</div>
         <div>Defense: {details.defense}</div>
         <div>Moves: {details.moves ? details.moves.join(', ') : ''}</div>
+
+        <h2>Items</h2>
+        <div>{this.items()}</div>
+
+        <Route path="/pokemon/:pokemonId/item/:itemId" component={ItemDetailContainer} />
       </div>
     );
   }
