@@ -6,9 +6,11 @@ const thumbStyle = {
 };
 
 const PokemonIndexItem = ({ poke }) => {
+  const url = `/pokemon/${poke.id}`;
+
   return (
     <li>
-      <Link to="/pokemon/:pokemonId">
+      <Link to={url}>
         { poke.name }
         <img src={poke.image_url} style={thumbStyle}></img>
       </Link>
