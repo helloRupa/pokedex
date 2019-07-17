@@ -3,7 +3,8 @@ import PokemonIndexItem from './pokemon_index_item';
 
 export default class PokemonIndex extends React.Component {
   componentDidMount() {
-    this.props.requestAllPokemon();
+    this.props.requestAllPokemon()
+      .then(() => { this.props.setIndexReady(true) });
   }
 
   render() {

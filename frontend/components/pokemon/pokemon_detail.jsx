@@ -2,23 +2,13 @@ import React from 'react';
 import { withRouter, Link, Route } from 'react-router-dom';
 import ItemDetailContainer from '../items/item_detail_container';
 
-const dummyMon = {
-  image_url: '/5.svg',
-  name: 'Sillybon',
-  poke_type: 'fire',
-  attack: 40,
-  defense: 60,
-  moves: ['screaming, crying, pandering'],
-}
-
 class PokemonDetail extends React.Component {
   constructor(props) {
     super(props);
   }
 
   componentDidMount() {
-    setTimeout(() => { this.props.requestPokemon(this.props.pokeId); }, 1500);
-    // this.props.requestPokemon(this.props.pokeId);
+    this.props.requestPokemon(this.props.pokeId);
   }
 
   componentDidUpdate(prevProps) {
@@ -39,8 +29,14 @@ class PokemonDetail extends React.Component {
     });
   }
 
+  showItem() {
+    if (this.props.items.length > 0) {
+      return <Route path="/pokemon/:pokemonId/item/:itemId" component={ItemDetailContainer} />
+    }
+  }
+
   render() {
-    const details = this.props.pokemon || dummyMon;
+    const details = this.props.pokemon;
 
     return (
       <div className="poke-detail">
@@ -54,7 +50,7 @@ class PokemonDetail extends React.Component {
         <div className="item">
           <h2>Items</h2>
           <div>{this.items()}</div>
-          <Route path="/pokemon/:pokemonId/item/:itemId" component={ItemDetailContainer} />
+          {this.showItem()}
         </div>
       </div>
     );
