@@ -91,7 +91,7 @@ nav {
 }
 
 #root {
-  height: 100%;
+  height: calc(100% - 53px);
   display: flex;
   justify-content: flex-start;
   align-content: flex-start;
