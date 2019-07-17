@@ -1,0 +1,57 @@
+.poke-form {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+
+  form {
+    background-color: #fff;
+    width: 400px;
+    padding: 20px;
+    border-radius: 8px;
+    margin-top: 20px;
+
+    div {
+      margin: 30px 0;
+    }
+
+    label {
+      display: none;
+    }
+
+    input {
+      font-size: 16px;
+    }
+
+    input[type="text"] {
+      background-color: #fff;
+      border: none;
+      border-bottom: 1px solid $black;
+      width: 100%;
+    }
+
+    input[type="number"] {
+      width: 100%;
+      border: none;
+      border-bottom: 1px solid $black;
+    }
+
+    select {
+      border: none;
+      width: 100%;
+      font-size: 16px;
+      border-bottom: 1px solid $black;
+      -moz-appearance: none;
+      -webkit-appearance: none;
+    }
+
+    input[type="submit"] {
+      background-color: $red;
+      border: none;
+      width: 100%;
+      color: #fff;
+      font-weight: 700;
+      padding: 10px 0;
+      cursor: pointer;
+    }
+  }
+}

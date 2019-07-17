@@ -2,10 +2,14 @@ import React from 'react';
 import { withRouter, Link, Route } from 'react-router-dom';
 import ItemDetailContainer from '../items/item_detail_container';
 
-const itemStyle = {
-  width: '35px',
-  display: 'inline-block',
-};
+const dummyMon = {
+  image_url: '/5.svg',
+  name: 'Sillybon',
+  poke_type: 'fire',
+  attack: 40,
+  defense: 60,
+  moves: ['screaming, crying, pandering'],
+}
 
 class PokemonDetail extends React.Component {
   constructor(props) {
@@ -13,7 +17,8 @@ class PokemonDetail extends React.Component {
   }
 
   componentDidMount() {
-    this.props.requestPokemon(this.props.pokeId);
+    setTimeout(() => { this.props.requestPokemon(this.props.pokeId); }, 1500);
+    // this.props.requestPokemon(this.props.pokeId);
   }
 
   componentDidUpdate(prevProps) {
@@ -28,28 +33,29 @@ class PokemonDetail extends React.Component {
 
       return (
         <Link to={url} key={item.id}>
-          <img src={item.image_url} style={itemStyle}></img>
+          <img src={item.image_url}></img>
         </Link>
       );
     });
   }
 
   render() {
-    const details = this.props.pokemon;
+    const details = this.props.pokemon || dummyMon;
 
     return (
-      <div>
-        <img src={details.image_url}></img>
+      <div className="poke-detail">
+        <img src={details.image_url} className="main-img"></img>
         <h1>{details.name}</h1>
-        <div>Type: {details.poke_type}</div>
-        <div>Attack: {details.attack}</div>
-        <div>Defense: {details.defense}</div>
-        <div>Moves: {details.moves ? details.moves.join(', ') : ''}</div>
+        <p>Type: {details.poke_type}</p>
+        <p>Attack: {details.attack}</p>
+        <p>Defense: {details.defense}</p>
+        <p>Moves: {details.moves ? details.moves.join(', ') : ''}</p>
 
-        <h2>Items</h2>
-        <div>{this.items()}</div>
-
-        <Route path="/pokemon/:pokemonId/item/:itemId" component={ItemDetailContainer} />
+        <div className="item">
+          <h2>Items</h2>
+          <div>{this.items()}</div>
+          <Route path="/pokemon/:pokemonId/item/:itemId" component={ItemDetailContainer} />
+        </div>
       </div>
     );
   }

@@ -1,7 +1,9 @@
-.poke-nav {
-  overflow-y: scroll;
-  height: 100%;
-  width: 300px;
+.pokedex {
+  ul {
+    overflow-y: scroll;
+    height: 100%;
+    width: 300px;
+  }
 
   li {
     border-bottom: 1px solid #161616;
@@ -31,5 +33,6 @@
 
   img {
     height: 20px;
+    width: 20px;
   }
 }

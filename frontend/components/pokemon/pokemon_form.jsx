@@ -47,6 +47,8 @@ class PokemonForm extends React.Component {
 
   render() {
     return (
+      <div className="poke-form">
+        <img src="/assets/pokemon-logo.svg"></img>
       <form onSubmit={this.handleSubmit}>
         {this.displayErrors()}
         <div>
@@ -89,7 +91,7 @@ class PokemonForm extends React.Component {
 
         <div>
           <label htmlFor="defense">Defense:</label>
-          <input type="text" 
+          <input type="number" 
             placeholder="Defense" 
             id="defense" 
             value={this.state.defense} 
@@ -108,9 +110,10 @@ class PokemonForm extends React.Component {
         </div>
 
         <div>
-          <input type="submit" value="Submit"></input>
+          <input type="submit" value="Create Pokemon"></input>
         </div>
       </form>
+      </div>
     );
   }
 };

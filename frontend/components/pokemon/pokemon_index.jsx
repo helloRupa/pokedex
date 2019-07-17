@@ -9,7 +9,7 @@ export default class PokemonIndex extends React.Component {
   render() {
     return (
       <section className="pokedex">
-        <ul className="poke-nav">
+        <ul>
           { this.props.pokemon.map((poke) => 
             <PokemonIndexItem poke={poke} key={poke.id} />
           ) }

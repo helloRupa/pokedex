@@ -2,10 +2,10 @@ import React from 'react';
 
 const ItemDetail = ({ item }) => {
   return (
-    <div>
+    <div className="item-detail">
       <h2>{item.name}</h2>
-      <div>Happiness: {item.happiness}</div>
-      <div>Price: ${item.price}</div>
+      <p>Happiness: {item.happiness}</p>
+      <p>Price: ${item.price}</p>
     </div>
   );
 };

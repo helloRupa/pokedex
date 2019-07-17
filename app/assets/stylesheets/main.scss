@@ -92,6 +92,9 @@ nav {
 
 #root {
   height: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-content: flex-start;
 }
 
 h2 {
@@ -107,4 +110,16 @@ h3 {
 .pokedex {
  overflow-y: hidden;
  height: 100%;
+}
+
+.main-content {
+  padding: 20px;
+  border: 5px solid #000;
+  border-radius: 8px;
+  margin: 20px auto;
+  width: 850px;
+  background-color: $light-grey;
+  height: 90%;
+  box-sizing: border-box;
+  overflow-y: auto;
 }
