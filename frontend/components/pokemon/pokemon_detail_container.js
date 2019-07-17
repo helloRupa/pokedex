@@ -4,7 +4,7 @@ import { requestPokemon } from '../../actions/pokemon_actions';
 import { selectPokemonItems, selectPokemon } from '../../reducers/selectors';
 
 const mapStateToProps = (state, ownProps) => ({
-  pokemon: selectPokemon(state, ownProps.match.params.pokemonId),
+  pokemon: state.entities.singlePokemon,
   items: selectPokemonItems(state, parseInt(ownProps.match.params.pokemonId)),
   pokeId: ownProps.match.params.pokemonId,
   loading: state.ui.loading.single,

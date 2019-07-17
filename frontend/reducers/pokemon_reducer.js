@@ -8,7 +8,7 @@ const pokemonReducer = (state = {}, action) => {
     case RECEIVE_POKEMON:
       let stateCopy = merge({}, state);
 
-      stateCopy[action.pokemon.id] = action.pokemon;
+      stateCopy[action.pokemon.id] = merge(stateCopy[action.pokemon.id], action.pokemon);
       return stateCopy;
     default:
       return state;
