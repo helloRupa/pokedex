@@ -9,8 +9,7 @@ export default class PokemonIndex extends React.Component {
   }
 
   componentDidMount() {
-    this.props.requestAllPokemon()
-      .then(() => { this.props.setIndexReady(true) });
+    this.props.requestAllPokemon();
   }
 
   pokemonIndex() {
