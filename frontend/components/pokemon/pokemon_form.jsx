@@ -38,7 +38,7 @@ class PokemonForm extends React.Component {
       moves: [],
       name: '',
       poke_type: '',
-    }
+    };
   }
 
   displayErrors() {

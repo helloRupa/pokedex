@@ -1,5 +1,6 @@
 import React from 'react';
 import PokemonIndexItem from './pokemon_index_item';
+import Loading from '../ui/loading';
 
 export default class PokemonIndex extends React.Component {
   constructor(props) {
@@ -15,9 +16,7 @@ export default class PokemonIndex extends React.Component {
   pokemonIndex() {
     if (this.props.loading) {
       return (
-        <div id="loading-pokeball-container">
-          <div id="loading-pokeball"></div>
-        </div>
+        <Loading />
       );
     } else {
       return (
