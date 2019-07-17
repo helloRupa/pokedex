@@ -614,8 +614,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 
- // import PokemonDetailContainer from './pokemon_detail_container';
-// import { Route } from 'react-router-dom';
+
 
 var PokemonIndex =
 /*#__PURE__*/
@@ -638,7 +637,9 @@ function (_React$Component) {
     value: function render() {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
         className: "pokedex"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, this.props.pokemon.map(function (poke) {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+        className: "poke-nav"
+      }, this.props.pokemon.map(function (poke) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_pokemon_index_item__WEBPACK_IMPORTED_MODULE_1__["default"], {
           poke: poke,
           key: poke.id
@@ -704,19 +705,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 
 
-var thumbStyle = {
-  height: '35px'
-};
 
 var PokemonIndexItem = function PokemonIndexItem(_ref) {
   var poke = _ref.poke;
   var url = "/pokemon/".concat(poke.id);
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
     to: url
-  }, poke.name, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-    src: poke.image_url,
-    style: thumbStyle
-  })));
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, poke.id), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+    src: poke.image_url
+  })), poke.name));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (PokemonIndexItem);
