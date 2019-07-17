@@ -7,6 +7,7 @@ const mapStateToProps = (state, ownProps) => ({
   pokemon: selectPokemon(state, ownProps.match.params.pokemonId),
   items: selectPokemonItems(state, parseInt(ownProps.match.params.pokemonId)),
   pokeId: ownProps.match.params.pokemonId,
+  loading: state.ui.loading.single,
 });
 
 const mapDispatchToProps = (dispatch) => ({

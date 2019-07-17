@@ -5,6 +5,7 @@ import ItemDetailContainer from '../items/item_detail_container';
 class PokemonDetail extends React.Component {
   constructor(props) {
     super(props);
+    this.pokemonDetail = this.pokemonDetail.bind(this);
   }
 
   componentDidMount() {
@@ -35,23 +36,40 @@ class PokemonDetail extends React.Component {
     }
   }
 
+  pokemonDetail() {
+    if (this.props.loading) {
+      return (
+        <div id="loading-pokeball-container">
+          <div id="loading-pokeball"></div>
+        </div>
+      );
+    } else {
+      const details = this.props.pokemon;
+      return (
+        <div className="poke-detail">
+          <img src={details.image_url} className="main-img"></img>
+          <h1>{details.name}</h1>
+          <p>Type: {details.poke_type}</p>
+          <p>Attack: {details.attack}</p>
+          <p>Defense: {details.defense}</p>
+          <p>Moves: {details.moves ? details.moves.join(', ') : ''}</p>
+  
+          <div className="item">
+            <h2>Items</h2>
+            <div>{this.items()}</div>
+            {this.showItem()}
+          </div>
+        </div>
+      );
+    }
+  }
+
   render() {
-    const details = this.props.pokemon;
+    
 
     return (
-      <div className="poke-detail">
-        <img src={details.image_url} className="main-img"></img>
-        <h1>{details.name}</h1>
-        <p>Type: {details.poke_type}</p>
-        <p>Attack: {details.attack}</p>
-        <p>Defense: {details.defense}</p>
-        <p>Moves: {details.moves ? details.moves.join(', ') : ''}</p>
-
-        <div className="item">
-          <h2>Items</h2>
-          <div>{this.items()}</div>
-          {this.showItem()}
-        </div>
+      <div>
+        {this.pokemonDetail()}
       </div>
     );
   }

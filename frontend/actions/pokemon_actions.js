@@ -1,5 +1,6 @@
 import * as APIUtil from '../util/api_util';
 import { receiveItems } from './items_actions';
+import * as Load from './loading_actions';
 
 export const RECEIVE_ALL_POKEMON = 'RECEIVE_ALL_POKEMON';
 export const RECEIVE_POKEMON = 'RECEIVE_POKEMON';
@@ -26,13 +27,17 @@ export const clearPokemonErrors = () => ({
   errors: []
 });
 
-export const requestAllPokemon = () => (dispatch) => (
-  APIUtil.fetchAllPokemon()
-    .then(pokemon => dispatch(receiveAllPokemon(pokemon)))
-);
+export const requestAllPokemon = () => (dispatch) => {
+  dispatch(Load.startLoadingAllPokemon);
 
-export const requestPokemon = (id) => (dispatch) => (
-  APIUtil.fetchPokemon(id)
+  return APIUtil.fetchAllPokemon()
+    .then(pokemon => dispatch(receiveAllPokemon(pokemon)))
+};
+
+export const requestPokemon = (id) => (dispatch) => {
+  dispatch(Load.startLoadingSinglePokemon);
+
+  return APIUtil.fetchPokemon(id)
     .then((pokemon) => {
       dispatch(receivePokemon(pokemon.pokemon));
 
@@ -40,7 +45,7 @@ export const requestPokemon = (id) => (dispatch) => (
         dispatch(receiveItems(pokemon.items));
       }
     })
-);
+  };
 
 export const createPokemon = (data) => (dispatch) => (
   APIUtil.createPokemon(data)

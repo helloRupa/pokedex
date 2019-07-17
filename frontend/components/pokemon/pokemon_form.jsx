@@ -9,6 +9,7 @@ class PokemonForm extends React.Component {
     this.handleMoves = this.handleMoves.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.displayErrors = this.displayErrors.bind(this);
+    this.props.clearPokemonErrors();
   }
 
   update(e) {
@@ -21,7 +22,6 @@ class PokemonForm extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    this.props.clearPokemonErrors();
 
     this.props.createPokemon(this.state)
       .then((pokemon) => {
