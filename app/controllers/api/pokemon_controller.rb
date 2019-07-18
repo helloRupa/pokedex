@@ -19,6 +19,16 @@ class Api::PokemonController < ApplicationController
     render :show
   end
 
+  def update
+    @pokemon = Pokemon.find_by_id(params[:id])
+
+    if @pokemon.update_attributes(pokemon_params)
+      render :show
+    else
+      render json: @pokemon.errors.full_messages, status: 422
+    end
+  end
+
   private
 
   def pokemon_params
