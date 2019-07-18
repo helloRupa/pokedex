@@ -1,12 +1,6 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 
-// DELETE WHEN DONE TESTING
-const tiny = {
-  width: '35px',
-  height: '35px',
-}
-
 const items = ['pokemon_berry', 'pokemon_egg', 'pokemon_potion', 'pokemon_super_potion'];
 const path = '/assets/';
 const filetype = '.svg';
@@ -49,9 +43,9 @@ class ItemFormView extends React.Component {
       const url = `${path}${item}${filetype}`;
 
       return (
-        <div key={item}>
-          <label htmlFor={item}><img src={url} style={tiny} title={item}></img></label>
+        <div key={item} className="item-images">
           <input type="radio" name="image_url" value={url} id={item} onClick={this.update}></input>
+          <label htmlFor={item}><img src={url} title={item}></img></label>
         </div>
       );
     });
@@ -65,15 +59,19 @@ class ItemFormView extends React.Component {
     const { image_url, name } = this.props.pokemon;
 
     return (
-      <div>
-        <img src={image_url}></img>
-        <h1>{name}</h1>
-
         <form onSubmit={this.handleSubmit}>
+          <div className="poke-header">
+            <img src={image_url}></img>
+            <h1>{name}</h1>
+          </div>
+
           {this.displayErrors()}
-          <div>
-            <label htmlFor="image_url">Image:</label>
-            {this.imageRadioButtons()}
+
+          <div className="imgUrl">
+            <label>Choose Image:</label>
+            <div className="radio">
+              {this.imageRadioButtons()}
+            </div>
           </div>
 
           <div>
@@ -110,7 +108,6 @@ class ItemFormView extends React.Component {
             <input type="submit" value="Create Item"></input>
           </div>
         </form>
-      </div>
     )
   }
 };

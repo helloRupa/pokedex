@@ -464,12 +464,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 
- // DELETE WHEN DONE TESTING
 
-var tiny = {
-  width: '35px',
-  height: '35px'
-};
 var items = ['pokemon_berry', 'pokemon_egg', 'pokemon_potion', 'pokemon_super_potion'];
 var path = '/assets/';
 var filetype = '.svg';
@@ -529,20 +524,20 @@ function (_React$Component) {
       return items.map(function (item) {
         var url = "".concat(path).concat(item).concat(filetype);
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-          key: item
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
-          htmlFor: item
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-          src: url,
-          style: tiny,
-          title: item
-        })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+          key: item,
+          className: "item-images"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
           type: "radio",
           name: "image_url",
           value: url,
           id: item,
           onClick: _this3.update
-        }));
+        }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+          htmlFor: item
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+          src: url,
+          title: item
+        })));
       });
     }
   }, {
@@ -556,13 +551,17 @@ function (_React$Component) {
       var _this$props$pokemon = this.props.pokemon,
           image_url = _this$props$pokemon.image_url,
           name = _this$props$pokemon.name;
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-        src: image_url
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
         onSubmit: this.handleSubmit
-      }, this.displayErrors(), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
-        htmlFor: "image_url"
-      }, "Image:"), this.imageRadioButtons()), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "poke-header"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+        src: image_url
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, name)), this.displayErrors(), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "imgUrl"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Choose Image:"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "radio"
+      }, this.imageRadioButtons())), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         htmlFor: "name"
       }, "Name:"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "text",
@@ -589,7 +588,7 @@ function (_React$Component) {
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "submit",
         value: "Create Item"
-      }))));
+      })));
     }
   }]);
 
