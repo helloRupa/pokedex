@@ -1,18 +1,18 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 
 const PokemonIndexItem = ({ poke }) => {
   const url = `/pokemon/${poke.id}`;
 
   return (
     <li>
-      <Link to={url}>
+      <NavLink to={url} activeClassName="active">
         <span>{poke.id}</span>
         <div>
           <img src={poke.image_url}></img>
         </div>
         { poke.name }
-      </Link>
+      </NavLink>
     </li>
   );
 };
