@@ -18,6 +18,7 @@ class ItemFormView extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.update = this.update.bind(this);
     this.imageRadioButtons = this.imageRadioButtons.bind(this);
+    this.props.clearItemErrors();
   }
 
   initialState() {
@@ -56,6 +57,10 @@ class ItemFormView extends React.Component {
     });
   }
 
+  displayErrors() {
+    return this.props.errors.join(' | ');
+  }
+
   render() {
     const { image_url, name } = this.props.pokemon;
 
@@ -65,6 +70,7 @@ class ItemFormView extends React.Component {
         <h1>{name}</h1>
 
         <form onSubmit={this.handleSubmit}>
+          {this.displayErrors()}
           <div>
             <label htmlFor="image_url">Image:</label>
             {this.imageRadioButtons()}

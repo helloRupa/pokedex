@@ -13,7 +13,11 @@ export default class ItemForm extends React.Component {
       return <Loading />;
     }
 
-    return <ItemFormView pokemon={this.props.pokemon} createItem={this.props.createItem} />;
+    return <ItemFormView 
+      pokemon={this.props.pokemon} 
+      createItem={this.props.createItem}
+      clearItemErrors={this.props.clearItemErrors}
+      errors={this.props.errors} />;
   }
 
   render() {

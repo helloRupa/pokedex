@@ -90,20 +90,26 @@
 /*!*******************************************!*\
   !*** ./frontend/actions/items_actions.js ***!
   \*******************************************/
-/*! exports provided: RECEIVE_ITEMS, RECEIVE_ITEM, receiveItems, receiveItem, createItem */
+/*! exports provided: RECEIVE_ITEMS, RECEIVE_ITEM, RECEIVE_ITEM_ERRORS, CLEAR_ITEM_ERRORS, receiveItems, receiveItem, receiveItemErrors, clearItemErrors, createItem */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_ITEMS", function() { return RECEIVE_ITEMS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_ITEM", function() { return RECEIVE_ITEM; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_ITEM_ERRORS", function() { return RECEIVE_ITEM_ERRORS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CLEAR_ITEM_ERRORS", function() { return CLEAR_ITEM_ERRORS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveItems", function() { return receiveItems; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveItem", function() { return receiveItem; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveItemErrors", function() { return receiveItemErrors; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "clearItemErrors", function() { return clearItemErrors; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createItem", function() { return createItem; });
 /* harmony import */ var _util_api_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util/api_util */ "./frontend/util/api_util.js");
 
 var RECEIVE_ITEMS = 'RECEIVE_ITEMS';
 var RECEIVE_ITEM = 'RECEIVE_ITEM';
+var RECEIVE_ITEM_ERRORS = 'RECEIVE_ITEM_ERRORS';
+var CLEAR_ITEM_ERRORS = 'CLEAR_ITEM_ERRORS';
 var receiveItems = function receiveItems(items) {
   return {
     type: RECEIVE_ITEMS,
@@ -116,11 +122,25 @@ var receiveItem = function receiveItem(item) {
     item: item
   };
 };
+var receiveItemErrors = function receiveItemErrors(errors) {
+  return {
+    type: RECEIVE_ITEM_ERRORS,
+    errors: errors
+  };
+};
+var clearItemErrors = function clearItemErrors() {
+  return {
+    type: CLEAR_ITEM_ERRORS,
+    errors: []
+  };
+};
 var createItem = function createItem(data) {
   return function (dispatch) {
     return _util_api_util__WEBPACK_IMPORTED_MODULE_0__["createItem"](data).then(function (item) {
       dispatch(receiveItem(item));
       return item;
+    }, function (errors) {
+      dispatch(receiveItemErrors(errors.responseJSON));
     });
   };
 };
@@ -348,7 +368,9 @@ function (_React$Component) {
 
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_item_form_view__WEBPACK_IMPORTED_MODULE_2__["default"], {
         pokemon: this.props.pokemon,
-        createItem: this.props.createItem
+        createItem: this.props.createItem,
+        clearItemErrors: this.props.clearItemErrors,
+        errors: this.props.errors
       });
     }
   }, {
@@ -389,7 +411,8 @@ __webpack_require__.r(__webpack_exports__);
 var mapStateToProps = function mapStateToProps(state, ownProps) {
   return {
     pokemon: Object(_reducers_selectors__WEBPACK_IMPORTED_MODULE_2__["selectPokemon"])(state, parseInt(ownProps.match.params.pokemonId)),
-    loading: state.ui.loading.all
+    loading: state.ui.loading.all,
+    errors: state.ui.errors
   };
 };
 
@@ -397,6 +420,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     createItem: function createItem(data) {
       return dispatch(Object(_actions_items_actions__WEBPACK_IMPORTED_MODULE_1__["createItem"])(data));
+    },
+    clearItemErrors: function clearItemErrors() {
+      return dispatch(Object(_actions_items_actions__WEBPACK_IMPORTED_MODULE_1__["clearItemErrors"])());
     }
   };
 };
@@ -463,6 +489,9 @@ function (_React$Component) {
     _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
     _this.update = _this.update.bind(_assertThisInitialized(_this));
     _this.imageRadioButtons = _this.imageRadioButtons.bind(_assertThisInitialized(_this));
+
+    _this.props.clearItemErrors();
+
     return _this;
   }
 
@@ -517,6 +546,11 @@ function (_React$Component) {
       });
     }
   }, {
+    key: "displayErrors",
+    value: function displayErrors() {
+      return this.props.errors.join(' | ');
+    }
+  }, {
     key: "render",
     value: function render() {
       var _this$props$pokemon = this.props.pokemon,
@@ -526,7 +560,7 @@ function (_React$Component) {
         src: image_url
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
         onSubmit: this.handleSubmit
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+      }, this.displayErrors(), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         htmlFor: "image_url"
       }, "Image:"), this.imageRadioButtons()), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         htmlFor: "name"
@@ -1287,6 +1321,7 @@ var entitiesReducer = Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _actions_pokemon_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/pokemon_actions */ "./frontend/actions/pokemon_actions.js");
+/* harmony import */ var _actions_items_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../actions/items_actions */ "./frontend/actions/items_actions.js");
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
 
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
@@ -1297,15 +1332,18 @@ function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 
 
 
+
 var errorsReducer = function errorsReducer() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
   var action = arguments.length > 1 ? arguments[1] : undefined;
 
   switch (action.type) {
     case _actions_pokemon_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_POKEMON_ERRORS"]:
+    case _actions_items_actions__WEBPACK_IMPORTED_MODULE_1__["RECEIVE_ITEM_ERRORS"]:
       return _toConsumableArray(action.errors);
 
     case _actions_pokemon_actions__WEBPACK_IMPORTED_MODULE_0__["CLEAR_POKEMON_ERRORS"]:
+    case _actions_items_actions__WEBPACK_IMPORTED_MODULE_1__["CLEAR_ITEM_ERRORS"]:
       return [];
 
     default:
