@@ -781,9 +781,11 @@ var PokemonDetailView = function PokemonDetailView(_ref) {
     className: "main-img"
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, details.name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Type: ", details.poke_type), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Attack: ", details.attack), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Defense: ", details.defense), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Moves: ", details.moves ? details.moves.join(', ') : ''), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "item"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Items"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, itemsLinks()), showItem()), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
-    to: "/pokemon/".concat(pokeId, "/item")
-  }, "Add Item"));
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Items"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
+    to: "/pokemon/".concat(pokeId, "/item"),
+    className: "add-item",
+    title: "add item"
+  }, "+"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, itemsLinks()), showItem()));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (PokemonDetailView);

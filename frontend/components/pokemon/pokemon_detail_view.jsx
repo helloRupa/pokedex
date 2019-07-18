@@ -3,6 +3,7 @@ import ItemDetailContainer from '../items/item_detail_container';
 import { Link, Route } from 'react-router-dom';
 
 const PokemonDetailView = ({details, items, pokeId}) => {
+
   const itemsLinks = () => {
     return items.map((item) => {
       const url = `/pokemon/${pokeId}/item/${item.id}`;
@@ -32,12 +33,12 @@ const PokemonDetailView = ({details, items, pokeId}) => {
   
       <div className="item">
         <h2>Items</h2>
+        <Link to={`/pokemon/${pokeId}/item`} className="add-item" title="add item">
+          +
+        </Link>
         <div>{itemsLinks()}</div>
         {showItem()}
       </div>
-      <Link to={`/pokemon/${pokeId}/item`}>
-        Add Item
-      </Link>
     </div>
   );
 };
