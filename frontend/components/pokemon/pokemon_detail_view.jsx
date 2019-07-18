@@ -35,6 +35,9 @@ const PokemonDetailView = ({details, items, pokeId}) => {
         <div>{itemsLinks()}</div>
         {showItem()}
       </div>
+      <Link to={`/pokemon/${pokeId}/item`}>
+        Add Item
+      </Link>
     </div>
   );
 };

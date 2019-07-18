@@ -90,18 +90,38 @@
 /*!*******************************************!*\
   !*** ./frontend/actions/items_actions.js ***!
   \*******************************************/
-/*! exports provided: RECEIVE_ITEMS, receiveItems */
+/*! exports provided: RECEIVE_ITEMS, RECEIVE_ITEM, receiveItems, receiveItem, createItem */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_ITEMS", function() { return RECEIVE_ITEMS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_ITEM", function() { return RECEIVE_ITEM; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveItems", function() { return receiveItems; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveItem", function() { return receiveItem; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createItem", function() { return createItem; });
+/* harmony import */ var _util_api_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util/api_util */ "./frontend/util/api_util.js");
+
 var RECEIVE_ITEMS = 'RECEIVE_ITEMS';
+var RECEIVE_ITEM = 'RECEIVE_ITEM';
 var receiveItems = function receiveItems(items) {
   return {
     type: RECEIVE_ITEMS,
     items: items
+  };
+};
+var receiveItem = function receiveItem(item) {
+  return {
+    type: RECEIVE_ITEM,
+    item: item
+  };
+};
+var createItem = function createItem(data) {
+  return function (dispatch) {
+    return _util_api_util__WEBPACK_IMPORTED_MODULE_0__["createItem"](data).then(function (item) {
+      dispatch(receiveItem(item));
+      return item;
+    });
   };
 };
 
@@ -265,6 +285,285 @@ var mapStateToProps = function mapStateToProps(state, ownProps) {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(mapStateToProps)(_item_detail__WEBPACK_IMPORTED_MODULE_2__["default"]));
+
+/***/ }),
+
+/***/ "./frontend/components/items/item_form.jsx":
+/*!*************************************************!*\
+  !*** ./frontend/components/items/item_form.jsx ***!
+  \*************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return ItemForm; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _ui_loading__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../ui/loading */ "./frontend/components/ui/loading.jsx");
+/* harmony import */ var _item_form_view__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./item_form_view */ "./frontend/components/items/item_form_view.jsx");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+
+
+var ItemForm =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(ItemForm, _React$Component);
+
+  function ItemForm(props) {
+    var _this;
+
+    _classCallCheck(this, ItemForm);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(ItemForm).call(this, props));
+    _this.itemForm = _this.itemForm.bind(_assertThisInitialized(_this));
+    return _this;
+  }
+
+  _createClass(ItemForm, [{
+    key: "itemForm",
+    value: function itemForm() {
+      if (this.props.loading) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_ui_loading__WEBPACK_IMPORTED_MODULE_1__["default"], null);
+      }
+
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_item_form_view__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        pokemon: this.props.pokemon,
+        createItem: this.props.createItem
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
+        className: "item-form"
+      }, this.itemForm());
+    }
+  }]);
+
+  return ItemForm;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+
+;
+
+/***/ }),
+
+/***/ "./frontend/components/items/item_form_container.js":
+/*!**********************************************************!*\
+  !*** ./frontend/components/items/item_form_container.js ***!
+  \**********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _actions_items_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../actions/items_actions */ "./frontend/actions/items_actions.js");
+/* harmony import */ var _reducers_selectors__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../reducers/selectors */ "./frontend/reducers/selectors.js");
+/* harmony import */ var _item_form__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./item_form */ "./frontend/components/items/item_form.jsx");
+
+
+
+
+
+var mapStateToProps = function mapStateToProps(state, ownProps) {
+  return {
+    pokemon: Object(_reducers_selectors__WEBPACK_IMPORTED_MODULE_2__["selectPokemon"])(state, parseInt(ownProps.match.params.pokemonId)),
+    loading: state.ui.loading.all
+  };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    createItem: function createItem(data) {
+      return dispatch(Object(_actions_items_actions__WEBPACK_IMPORTED_MODULE_1__["createItem"])(data));
+    }
+  };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(mapStateToProps, mapDispatchToProps)(_item_form__WEBPACK_IMPORTED_MODULE_3__["default"]));
+
+/***/ }),
+
+/***/ "./frontend/components/items/item_form_view.jsx":
+/*!******************************************************!*\
+  !*** ./frontend/components/items/item_form_view.jsx ***!
+  \******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+ // DELETE WHEN DONE TESTING
+
+var tiny = {
+  width: '35px',
+  height: '35px'
+};
+var items = ['pokemon_berry', 'pokemon_egg', 'pokemon_potion', 'pokemon_super_potion'];
+var path = '/assets/';
+var filetype = '.svg';
+
+var ItemFormView =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(ItemFormView, _React$Component);
+
+  function ItemFormView(props) {
+    var _this;
+
+    _classCallCheck(this, ItemFormView);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(ItemFormView).call(this, props));
+    _this.state = _this.initialState();
+    _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
+    _this.update = _this.update.bind(_assertThisInitialized(_this));
+    _this.imageRadioButtons = _this.imageRadioButtons.bind(_assertThisInitialized(_this));
+    return _this;
+  }
+
+  _createClass(ItemFormView, [{
+    key: "initialState",
+    value: function initialState() {
+      return {
+        name: '',
+        pokemon_id: this.props.pokemon.id,
+        happiness: '',
+        price: '',
+        image_url: ''
+      };
+    }
+  }, {
+    key: "update",
+    value: function update(e) {
+      this.setState(_defineProperty({}, e.currentTarget.name, e.currentTarget.value));
+    }
+  }, {
+    key: "handleSubmit",
+    value: function handleSubmit(e) {
+      var _this2 = this;
+
+      e.preventDefault();
+      this.props.createItem(this.state).then(function (item) {
+        _this2.props.history.push("pokemon/".concat(item.pokemon_id));
+      });
+    }
+  }, {
+    key: "imageRadioButtons",
+    value: function imageRadioButtons() {
+      var _this3 = this;
+
+      return items.map(function (item) {
+        var url = "".concat(path).concat(item).concat(filetype);
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          key: item
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+          htmlFor: item
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+          src: url,
+          style: tiny,
+          title: item
+        })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+          type: "radio",
+          name: "image_url",
+          value: url,
+          id: item,
+          onClick: _this3.update
+        }));
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this$props$pokemon = this.props.pokemon,
+          image_url = _this$props$pokemon.image_url,
+          name = _this$props$pokemon.name;
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+        src: image_url
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
+        onSubmit: this.handleSubmit
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+        htmlFor: "image_url"
+      }, "Image:"), this.imageRadioButtons()), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+        htmlFor: "name"
+      }, "Name:"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "text",
+        placeholder: "Name",
+        name: "name",
+        value: this.state.name,
+        onChange: this.update
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+        htmlFor: "price"
+      }, "Price:"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "number",
+        placeholder: "Price",
+        name: "price",
+        value: this.state.price,
+        onChange: this.update
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+        htmlFor: "happiness"
+      }, "Happiness:"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "number",
+        placeholder: "Happiness",
+        name: "happiness",
+        value: this.state.happiness,
+        onChange: this.update
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "submit",
+        value: "Create Item"
+      }))));
+    }
+  }]);
+
+  return ItemFormView;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+;
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["withRouter"])(ItemFormView));
 
 /***/ }),
 
@@ -449,7 +748,9 @@ var PokemonDetailView = function PokemonDetailView(_ref) {
     className: "main-img"
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, details.name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Type: ", details.poke_type), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Attack: ", details.attack), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Defense: ", details.defense), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Moves: ", details.moves ? details.moves.join(', ') : ''), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "item"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Items"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, itemsLinks()), showItem()));
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Items"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, itemsLinks()), showItem()), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
+    to: "/pokemon/".concat(pokeId, "/item")
+  }, "Add Item"));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (PokemonDetailView);
@@ -837,6 +1138,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 /* harmony import */ var _components_pokemon_pokemon_detail_container__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/pokemon/pokemon_detail_container */ "./frontend/components/pokemon/pokemon_detail_container.js");
 /* harmony import */ var _components_pokemon_pokemon_form_container__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/pokemon/pokemon_form_container */ "./frontend/components/pokemon/pokemon_form_container.js");
+/* harmony import */ var _components_items_item_form_container__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../components/items/item_form_container */ "./frontend/components/items/item_form_container.js");
+
 
 
 
@@ -857,6 +1160,10 @@ var Root = function Root(_ref) {
     exact: true,
     path: "/",
     component: _components_pokemon_pokemon_form_container__WEBPACK_IMPORTED_MODULE_5__["default"]
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Route"], {
+    exact: true,
+    path: "/pokemon/:pokemonId/item",
+    component: _components_items_item_form_container__WEBPACK_IMPORTED_MODULE_6__["default"]
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Route"], {
     path: "/pokemon/:pokemonId",
     component: _components_pokemon_pokemon_detail_container__WEBPACK_IMPORTED_MODULE_4__["default"]
@@ -1028,13 +1335,17 @@ __webpack_require__.r(__webpack_exports__);
 var itemsReducer = function itemsReducer() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
   var action = arguments.length > 1 ? arguments[1] : undefined;
+  var stateCopy = lodash_merge__WEBPACK_IMPORTED_MODULE_1___default()({}, state);
 
   switch (action.type) {
     case _actions_items_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_ITEMS"]:
-      var stateCopy = lodash_merge__WEBPACK_IMPORTED_MODULE_1___default()({}, state);
       Object.keys(action.items).forEach(function (id) {
         stateCopy[id] = action.items[id];
       });
+      return stateCopy;
+
+    case _actions_items_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_ITEM"]:
+      stateCopy[action.item.id] = action.item;
       return stateCopy;
 
     default:
@@ -1282,7 +1593,7 @@ var configureStore = function configureStore() {
 /*!***********************************!*\
   !*** ./frontend/util/api_util.js ***!
   \***********************************/
-/*! exports provided: fetchAllPokemon, fetchPokemon, createPokemon */
+/*! exports provided: fetchAllPokemon, fetchPokemon, createPokemon, createItem */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1290,6 +1601,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchAllPokemon", function() { return fetchAllPokemon; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchPokemon", function() { return fetchPokemon; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createPokemon", function() { return createPokemon; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createItem", function() { return createItem; });
 var fetchAllPokemon = function fetchAllPokemon() {
   return $.ajax({
     method: 'GET',
@@ -1308,6 +1620,15 @@ var createPokemon = function createPokemon(data) {
     url: 'api/pokemon',
     data: {
       pokemon: data
+    }
+  });
+};
+var createItem = function createItem(data) {
+  return $.ajax({
+    method: 'POST',
+    url: 'api/items',
+    data: {
+      item: data
     }
   });
 };

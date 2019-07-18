@@ -18,4 +18,12 @@ export const createPokemon = (data) => {
     url: 'api/pokemon',
     data: { pokemon: data }
   });
-}
+};
+
+export const createItem = (data) => {
+  return $.ajax({
+    method: 'POST',
+    url: 'api/items',
+    data: { item: data }
+  });
+};
