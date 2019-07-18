@@ -561,14 +561,17 @@ function (_React$Component) {
     value: function render() {
       var _this$props$pokemon = this.props.pokemon,
           image_url = _this$props$pokemon.image_url,
-          name = _this$props$pokemon.name;
+          name = _this$props$pokemon.name,
+          id = _this$props$pokemon.id;
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
         onSubmit: this.handleSubmit
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "poke-header"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+        to: "/pokemon/".concat(id)
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
         src: image_url
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, name)), this.displayErrors(), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, name)), this.displayErrors(), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "imgUrl"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Choose Image:"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "radio"

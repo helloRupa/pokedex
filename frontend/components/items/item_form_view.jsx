@@ -1,5 +1,5 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 
 const items = ['pokemon_berry', 'pokemon_egg', 'pokemon_potion', 'pokemon_super_potion'];
 const path = '/assets/';
@@ -56,58 +56,58 @@ class ItemFormView extends React.Component {
   }
 
   render() {
-    const { image_url, name } = this.props.pokemon;
+    const { image_url, name, id } = this.props.pokemon;
 
     return (
-        <form onSubmit={this.handleSubmit}>
-          <div className="poke-header">
-            <img src={image_url}></img>
-            <h1>{name}</h1>
-          </div>
+      <form onSubmit={this.handleSubmit}>
+        <div className="poke-header">
+          <Link to={`/pokemon/${id}`}><img src={image_url}></img></Link>
+          <h1>{name}</h1>
+        </div>
 
-          {this.displayErrors()}
+        {this.displayErrors()}
 
-          <div className="imgUrl">
-            <label>Choose Image:</label>
-            <div className="radio">
-              {this.imageRadioButtons()}
-            </div>
+        <div className="imgUrl">
+          <label>Choose Image:</label>
+          <div className="radio">
+            {this.imageRadioButtons()}
           </div>
+        </div>
 
-          <div>
-            <label htmlFor="name">Name:</label>
-            <input type="text" 
-              placeholder="Name" 
-              name="name" 
-              value={this.state.name} 
-              onChange={this.update}>
-            </input>
-          </div>
+        <div>
+          <label htmlFor="name">Name:</label>
+          <input type="text" 
+            placeholder="Name" 
+            name="name" 
+            value={this.state.name} 
+            onChange={this.update}>
+          </input>
+        </div>
 
-          <div>
-            <label htmlFor="price">Price:</label>
-            <input type="number" 
-              placeholder="Price" 
-              name="price" 
-              value={this.state.price} 
-              onChange={this.update}>
-            </input>
-          </div>
+        <div>
+          <label htmlFor="price">Price:</label>
+          <input type="number" 
+            placeholder="Price" 
+            name="price" 
+            value={this.state.price} 
+            onChange={this.update}>
+          </input>
+        </div>
 
-          <div>
-            <label htmlFor="happiness">Happiness:</label>
-            <input type="number" 
-              placeholder="Happiness" 
-              name="happiness" 
-              value={this.state.happiness} 
-              onChange={this.update}>
-            </input>
-          </div>
+        <div>
+          <label htmlFor="happiness">Happiness:</label>
+          <input type="number" 
+            placeholder="Happiness" 
+            name="happiness" 
+            value={this.state.happiness} 
+            onChange={this.update}>
+          </input>
+        </div>
 
-          <div>
-            <input type="submit" value="Create Item"></input>
-          </div>
-        </form>
+        <div>
+          <input type="submit" value="Create Item"></input>
+        </div>
+      </form>
     )
   }
 };
