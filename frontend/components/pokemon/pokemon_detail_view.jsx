@@ -17,11 +17,9 @@ class PokemonDetailView extends React.Component {
     const details = this.props.details;
 
     return {
-      type: details.type,
       attack: details.attack,
       defense: details.defense,
       moves: details.moves,
-      id: details.id,
       attackEdit: false,
       defenseEdit: false,
       movesEdit: false,
@@ -54,6 +52,18 @@ class PokemonDetailView extends React.Component {
     );
   }
 
+  editGroup(title, value, prop) {
+    return (
+      <div className="edit-group">
+        <p>{title}: {value}</p>
+        <button 
+          title="edit" 
+          className="edit" 
+          onClick={() => { this.handleEditClick(prop) }}><i className="fas fa-edit"></i></button>
+      </div>
+    );
+  }
+
   showNumberData(title, prop) {
     if (this.state[prop + 'Edit']) {
       return (
@@ -72,13 +82,7 @@ class PokemonDetailView extends React.Component {
     }
 
     return (
-      <div className="edit-group">
-        <p>{title}: {this.state[prop] || this.props.details[prop]}</p>
-        <button 
-          title="edit" 
-          className="edit" 
-          onClick={() => { this.handleEditClick(prop) }}><i className="fas fa-edit"></i></button>
-      </div>
+      <div>{this.editGroup(title, this.state[prop] || this.props.details[prop], prop)}</div>
     );
   }
 
@@ -105,14 +109,10 @@ class PokemonDetailView extends React.Component {
     }
 
     return (
-      <div className="edit-group">
-        <p>Moves: {this.state.moves.join(', ') || this.props.details.moves.join(', ') || ''}</p>
-        <button 
-          title="edit" 
-          className="edit" 
-          onClick={() => { this.handleEditClick('moves') }}>
-            <i className="fas fa-edit"></i>
-        </button>
+      <div>
+        {this.editGroup('Moves', this.state.moves.join(', ') || 
+          this.props.details.moves.join(', ') || 
+          '', 'moves')}
       </div>
     );
   }

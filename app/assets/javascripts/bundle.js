@@ -848,11 +848,9 @@ function (_React$Component) {
     value: function initialState() {
       var details = this.props.details;
       return {
-        type: details.type,
         attack: details.attack,
         defense: details.defense,
         moves: details.moves,
-        id: details.id,
         attackEdit: false,
         defenseEdit: false,
         movesEdit: false
@@ -894,10 +892,25 @@ function (_React$Component) {
       }, "X");
     }
   }, {
-    key: "showNumberData",
-    value: function showNumberData(title, prop) {
+    key: "editGroup",
+    value: function editGroup(title, value, prop) {
       var _this4 = this;
 
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "edit-group"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, title, ": ", value), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        title: "edit",
+        className: "edit",
+        onClick: function onClick() {
+          _this4.handleEditClick(prop);
+        }
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "fas fa-edit"
+      })));
+    }
+  }, {
+    key: "showNumberData",
+    value: function showNumberData(title, prop) {
       if (this.state[prop + 'Edit']) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
           htmlFor: prop
@@ -910,17 +923,7 @@ function (_React$Component) {
         }), this.cancelBtn(prop));
       }
 
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "edit-group"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, title, ": ", this.state[prop] || this.props.details[prop]), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-        title: "edit",
-        className: "edit",
-        onClick: function onClick() {
-          _this4.handleEditClick(prop);
-        }
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-        className: "fas fa-edit"
-      })));
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, this.editGroup(title, this.state[prop] || this.props.details[prop], prop));
     }
   }, {
     key: "handleMoves",
@@ -932,8 +935,6 @@ function (_React$Component) {
   }, {
     key: "showMoves",
     value: function showMoves() {
-      var _this5 = this;
-
       if (this.state.movesEdit) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
           htmlFor: "moves"
@@ -946,27 +947,17 @@ function (_React$Component) {
         }), this.cancelBtn('moves'));
       }
 
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "edit-group"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Moves: ", this.state.moves.join(', ') || this.props.details.moves.join(', ') || ''), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-        title: "edit",
-        className: "edit",
-        onClick: function onClick() {
-          _this5.handleEditClick('moves');
-        }
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-        className: "fas fa-edit"
-      })));
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, this.editGroup('Moves', this.state.moves.join(', ') || this.props.details.moves.join(', ') || '', 'moves'));
     }
   }, {
     key: "handleSave",
     value: function handleSave() {
-      var _this6 = this;
+      var _this5 = this;
 
       this.props.clearPokemonErrors();
       this.props.updatePokemon(this.state, this.props.pokeId).then(function () {
         ['attackEdit', 'defenseEdit', 'movesEdit'].forEach(function (prop) {
-          _this6.setState(_defineProperty({}, prop, false));
+          _this5.setState(_defineProperty({}, prop, false));
         });
       });
     }
