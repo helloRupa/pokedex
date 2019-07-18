@@ -28,7 +28,10 @@ class PokemonDetail extends React.Component {
       <PokemonDetailView 
         details={this.props.pokemon} 
         items={this.props.items} 
-        pokeId={this.props.pokeId} />
+        pokeId={this.props.pokeId}
+        errors={this.props.errors}
+        updatePokemon={this.props.updatePokemon}
+        clearPokemonErrors={this.props.clearPokemonErrors} />
     );
   }
 
