@@ -164,6 +164,7 @@ class PokemonDetailView extends React.Component {
         <img src={details.image_url} className="main-img"></img>
         <h1>{details.name}</h1>
         {this.displayErrors()}
+        
         <p>Type: {details.poke_type}</p>
         {this.showNumberData('Attack', 'attack')}
         {this.showNumberData('Defense', 'defense')}

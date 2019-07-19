@@ -40,6 +40,10 @@ header {
   }
 }
 
+#menu-toggle {
+  cursor: pointer;
+}
+
 nav {
   width: 900px;
   background-color: $red;
@@ -91,10 +95,9 @@ nav {
 }
 
 #root {
-  height: calc(100% - 53px);
-  display: flex;
-  justify-content: flex-start;
-  align-content: flex-start;
+  height: calc(100% - 73px);
+  display: block;
+  position: relative;
 }
 
 h2 {
@@ -107,17 +110,12 @@ h3 {
   color: $black;
 }
 
-.pokedex {
- overflow-y: hidden;
- height: 100%;
-}
-
 .main-content {
   padding: 20px;
   border: 5px solid #000;
   border-radius: 8px;
   margin: 20px auto;
-  width: calc(100% - 350px);
+  width: 95%;
   background-color: $light-grey;
   height: calc(100% - 25px);
   box-sizing: border-box;
@@ -126,7 +124,7 @@ h3 {
 
 form {
   background-color: #fff;
-  width: 400px;
+  width: 97%;
   padding: 20px;
   border-radius: 8px;
   margin-top: 20px;
@@ -175,5 +173,35 @@ form {
     font-weight: 700;
     padding: 10px 0;
     cursor: pointer;
+  }
+}
+
+.show {
+  display: block !important;
+}
+
+@media all and (min-width: 720px) {
+  #menu-toggle {
+    cursor: default;
+  }
+
+  #root {
+    display: flex;
+    justify-content: flex-start;
+    align-content: flex-start;
+  }
+
+  .main-content {
+    width: calc(100% - 230px);
+  }
+
+  form {
+    width: 400px;
+  }
+}
+
+@media all and (min-width: 950px) {
+  .main-content {
+    width: calc(100% - 350px);
   }
 }
