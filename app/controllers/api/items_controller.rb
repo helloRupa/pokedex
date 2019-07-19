@@ -9,6 +9,16 @@ class Api::ItemsController < ApplicationController
     end
   end
 
+  def destroy
+    @item = Item.find_by_id(params[:id])
+
+    if @item.destroy
+      render :show
+    else
+      render @item.errors.full_messages, status: 422
+    end
+  end
+
   private
 
   def item_params

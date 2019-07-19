@@ -90,24 +90,28 @@
 /*!*******************************************!*\
   !*** ./frontend/actions/items_actions.js ***!
   \*******************************************/
-/*! exports provided: RECEIVE_ITEMS, RECEIVE_ITEM, RECEIVE_ITEM_ERRORS, CLEAR_ITEM_ERRORS, receiveItems, receiveItem, receiveItemErrors, clearItemErrors, createItem */
+/*! exports provided: RECEIVE_ITEMS, RECEIVE_ITEM, REMOVE_ITEM, RECEIVE_ITEM_ERRORS, CLEAR_ITEM_ERRORS, receiveItems, receiveItem, removeItem, receiveItemErrors, clearItemErrors, createItem, deleteItem */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_ITEMS", function() { return RECEIVE_ITEMS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_ITEM", function() { return RECEIVE_ITEM; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "REMOVE_ITEM", function() { return REMOVE_ITEM; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_ITEM_ERRORS", function() { return RECEIVE_ITEM_ERRORS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CLEAR_ITEM_ERRORS", function() { return CLEAR_ITEM_ERRORS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveItems", function() { return receiveItems; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveItem", function() { return receiveItem; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "removeItem", function() { return removeItem; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveItemErrors", function() { return receiveItemErrors; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "clearItemErrors", function() { return clearItemErrors; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createItem", function() { return createItem; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteItem", function() { return deleteItem; });
 /* harmony import */ var _util_api_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util/api_util */ "./frontend/util/api_util.js");
 
 var RECEIVE_ITEMS = 'RECEIVE_ITEMS';
 var RECEIVE_ITEM = 'RECEIVE_ITEM';
+var REMOVE_ITEM = 'REMOVE_ITEM';
 var RECEIVE_ITEM_ERRORS = 'RECEIVE_ITEM_ERRORS';
 var CLEAR_ITEM_ERRORS = 'CLEAR_ITEM_ERRORS';
 var receiveItems = function receiveItems(items) {
@@ -120,6 +124,12 @@ var receiveItem = function receiveItem(item) {
   return {
     type: RECEIVE_ITEM,
     item: item
+  };
+};
+var removeItem = function removeItem(id) {
+  return {
+    type: REMOVE_ITEM,
+    id: id
   };
 };
 var receiveItemErrors = function receiveItemErrors(errors) {
@@ -137,8 +147,18 @@ var clearItemErrors = function clearItemErrors() {
 var createItem = function createItem(data) {
   return function (dispatch) {
     return _util_api_util__WEBPACK_IMPORTED_MODULE_0__["createItem"](data).then(function (item) {
-      dispatch(receiveItem(item));
-      return item;
+      dispatch(receiveItem(item.item));
+      return item.item;
+    }, function (errors) {
+      dispatch(receiveItemErrors(errors.responseJSON));
+    });
+  };
+};
+var deleteItem = function deleteItem(id) {
+  return function (dispatch) {
+    return _util_api_util__WEBPACK_IMPORTED_MODULE_0__["deleteItem"](id).then(function (item) {
+      dispatch(removeItem(id));
+      return item.item;
     }, function (errors) {
       dispatch(receiveItemErrors(errors.responseJSON));
     });
@@ -280,16 +300,36 @@ var updatePokemon = function updatePokemon(data, id) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+
 
 
 var ItemDetail = function ItemDetail(_ref) {
-  var item = _ref.item;
+  var item = _ref.item,
+      errors = _ref.errors,
+      deleteItem = _ref.deleteItem,
+      history = _ref.history;
+
+  var displayErrors = function displayErrors() {
+    return errors.join(' | ');
+  };
+
+  var destroyItem = function destroyItem() {
+    history.push("/pokemon/".concat(item.pokemon_id));
+    deleteItem(item.id);
+  };
+
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "item-detail"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, item.name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Happiness: ", item.happiness), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Price: $", item.price));
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, item.name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+    className: "delete-item",
+    onClick: destroyItem
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+    className: "fas fa-trash-alt"
+  })), displayErrors(), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Happiness: ", item.happiness), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Price: $", item.price));
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (ItemDetail);
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["withRouter"])(ItemDetail));
 
 /***/ }),
 
@@ -305,17 +345,28 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _reducers_selectors__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../reducers/selectors */ "./frontend/reducers/selectors.js");
 /* harmony import */ var _item_detail__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./item_detail */ "./frontend/components/items/item_detail.jsx");
+/* harmony import */ var _actions_items_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../actions/items_actions */ "./frontend/actions/items_actions.js");
+
 
 
 
 
 var mapStateToProps = function mapStateToProps(state, ownProps) {
   return {
-    item: Object(_reducers_selectors__WEBPACK_IMPORTED_MODULE_1__["selectItem"])(state, parseInt(ownProps.match.params.itemId))
+    item: Object(_reducers_selectors__WEBPACK_IMPORTED_MODULE_1__["selectItem"])(state, parseInt(ownProps.match.params.itemId)),
+    errors: state.ui.errors
   };
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(mapStateToProps)(_item_detail__WEBPACK_IMPORTED_MODULE_2__["default"]));
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    deleteItem: function deleteItem(id) {
+      return dispatch(Object(_actions_items_actions__WEBPACK_IMPORTED_MODULE_3__["deleteItem"])(id));
+    }
+  };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(mapStateToProps, mapDispatchToProps)(_item_detail__WEBPACK_IMPORTED_MODULE_2__["default"]));
 
 /***/ }),
 
@@ -524,7 +575,7 @@ function (_React$Component) {
 
       e.preventDefault();
       this.props.createItem(this.state).then(function (item) {
-        _this2.props.history.push("pokemon/".concat(item.pokemon_id));
+        _this2.props.history.push("item/".concat(item.id));
       });
     }
   }, {
@@ -634,9 +685,10 @@ var ItemLinks = function ItemLinks(_ref) {
       pokeId = _ref.pokeId;
   return items.map(function (item) {
     var url = "/pokemon/".concat(pokeId, "/item/").concat(item.id);
-    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
       to: url,
-      key: item.id
+      key: item.id,
+      activeClassName: "active"
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
       src: item.image_url
     }));
@@ -1662,6 +1714,10 @@ var itemsReducer = function itemsReducer() {
       stateCopy[action.item.id] = action.item;
       return stateCopy;
 
+    case _actions_items_actions__WEBPACK_IMPORTED_MODULE_0__["REMOVE_ITEM"]:
+      delete stateCopy[action.id];
+      return stateCopy;
+
     default:
       return state;
   }
@@ -1907,7 +1963,7 @@ var configureStore = function configureStore() {
 /*!***********************************!*\
   !*** ./frontend/util/api_util.js ***!
   \***********************************/
-/*! exports provided: fetchAllPokemon, fetchPokemon, createPokemon, createItem, updatePokemon */
+/*! exports provided: fetchAllPokemon, fetchPokemon, createPokemon, createItem, updatePokemon, deleteItem */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1917,6 +1973,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createPokemon", function() { return createPokemon; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createItem", function() { return createItem; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updatePokemon", function() { return updatePokemon; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteItem", function() { return deleteItem; });
 var fetchAllPokemon = function fetchAllPokemon() {
   return $.ajax({
     method: 'GET',
@@ -1954,6 +2011,12 @@ var updatePokemon = function updatePokemon(data, id) {
     data: {
       pokemon: data
     }
+  });
+};
+var deleteItem = function deleteItem(id) {
+  return $.ajax({
+    method: 'DELETE',
+    url: "api/items/".concat(id)
   });
 };
 
