@@ -34,7 +34,7 @@ class ItemFormView extends React.Component {
 
     this.props.createItem(this.state)
       .then(
-        (item) => {this.props.history.push(`pokemon/${item.pokemon_id}`);}
+        (item) => {this.props.history.push(`item/${item.id}`);}
       );
   }
 

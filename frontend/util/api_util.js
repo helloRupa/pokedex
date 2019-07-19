@@ -35,3 +35,10 @@ export const updatePokemon = (data, id) => {
     data: { pokemon: data }
   });
 };
+
+export const deleteItem = (id) => {
+  return $.ajax({
+    method: 'DELETE',
+    url: `api/items/${id}`
+  });
+};
