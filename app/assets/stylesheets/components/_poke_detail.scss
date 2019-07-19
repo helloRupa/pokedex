@@ -5,8 +5,8 @@
   color: $black;
 
   .main-img {
-    height: 300px;
-    width: 500px;
+    width: 75%;
+    max-width: 500px;
     background: red;
     background: -webkit-linear-gradient(315deg, #d43316, #ff0);
     background: -o-linear-gradient(315deg, #d43316, #ff0);
