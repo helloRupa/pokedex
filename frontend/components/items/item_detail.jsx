@@ -14,8 +14,8 @@ const ItemDetail = ({ item, errors, deleteItem, history }) => {
   return (
     <div className="item-detail">
       <h2>{item.name}</h2>
+      <button className="delete-item" onClick={destroyItem}><i className="fas fa-trash-alt"></i></button>
       {displayErrors()}
-      <button onClick={destroyItem}><i className="fas fa-trash-alt"></i></button>
       <p>Happiness: {item.happiness}</p>
       <p>Price: ${item.price}</p>
     </div>

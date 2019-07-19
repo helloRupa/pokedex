@@ -321,11 +321,12 @@ var ItemDetail = function ItemDetail(_ref) {
 
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "item-detail"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, item.name), displayErrors(), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, item.name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+    className: "delete-item",
     onClick: destroyItem
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
     className: "fas fa-trash-alt"
-  })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Happiness: ", item.happiness), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Price: $", item.price));
+  })), displayErrors(), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Happiness: ", item.happiness), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Price: $", item.price));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["withRouter"])(ItemDetail));
@@ -684,9 +685,10 @@ var ItemLinks = function ItemLinks(_ref) {
       pokeId = _ref.pokeId;
   return items.map(function (item) {
     var url = "/pokemon/".concat(pokeId, "/item/").concat(item.id);
-    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
       to: url,
-      key: item.id
+      key: item.id,
+      activeClassName: "active"
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
       src: item.image_url
     }));
