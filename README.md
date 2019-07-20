@@ -1,7 +1,14 @@
 # Pokedex
 Requires Ruby, Rails, React, Redux, Lodash, React DOM Router, Webpack, Babel
 
-View Pokemon details and create your own.
+View Pokemon and their items, and create your own.
+
+## Features
+- Create Pokemon
+- Edit Pokemon
+- Add items to Pokemon
+- Remove items from Pokemon
+- Responsive
 
 ## Install dependencies
 - npm install

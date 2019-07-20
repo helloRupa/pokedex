@@ -1,5 +1,6 @@
 import React from 'react';
 import { withRouter, Link } from 'react-router-dom';
+import Errors from '../ui/errors';
 
 const items = ['pokemon_berry', 'pokemon_egg', 'pokemon_potion', 'pokemon_super_potion'];
 const path = '/assets/';
@@ -51,10 +52,6 @@ class ItemFormView extends React.Component {
     });
   }
 
-  displayErrors() {
-    return this.props.errors.join(' | ');
-  }
-
   render() {
     const { image_url, name, id } = this.props.pokemon;
 
@@ -65,7 +62,7 @@ class ItemFormView extends React.Component {
           <h1>{name}</h1>
         </div>
 
-        {this.displayErrors()}
+        <Errors errors={this.props.errors} />
 
         <div className="imgUrl">
           <label>Choose Image:</label>

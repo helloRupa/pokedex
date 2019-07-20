@@ -1,5 +1,6 @@
 import React from 'react';
 import PokemonItems from './pokemon_items';
+import Errors from '../ui/errors';
 
 class PokemonDetailView extends React.Component {
   constructor(props) {
@@ -145,7 +146,7 @@ class PokemonDetailView extends React.Component {
 
     if (errors.length > 0 && this.isEditing()) {
       return (
-        <div className="errors">{this.props.errors.join('  |  ')}</div>
+        <Errors errors={this.props.errors} />
       );
     }
   }

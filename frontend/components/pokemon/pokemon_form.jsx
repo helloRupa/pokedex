@@ -1,5 +1,5 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
+import Errors from '../ui/errors';
 
 class PokemonForm extends React.Component {
   constructor(props) {
@@ -8,7 +8,6 @@ class PokemonForm extends React.Component {
     this.update = this.update.bind(this);
     this.handleMoves = this.handleMoves.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.displayErrors = this.displayErrors.bind(this);
     this.props.clearPokemonErrors();
   }
 
@@ -41,16 +40,15 @@ class PokemonForm extends React.Component {
     };
   }
 
-  displayErrors() {
-    return this.props.errors.join(' | ');
-  }
-
   render() {
     return (
       <div className="poke-form">
         <img src="/assets/pokemon-logo.svg"></img>
+
       <form onSubmit={this.handleSubmit}>
-        {this.displayErrors()}
+        
+        <Errors errors={this.props.errors} />
+
         <div>
           <label htmlFor="name">Name:</label>
           <input type="text" 
@@ -118,4 +116,4 @@ class PokemonForm extends React.Component {
   }
 };
 
-export default withRouter(PokemonForm);
+export default PokemonForm;
