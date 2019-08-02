@@ -1,4 +1,4 @@
-import { RECEIVE_ALL_POKEMON, RECEIVE_POKEMON } from '../actions/pokemon_actions';
+import { RECEIVE_ALL_POKEMON, RECEIVE_POKEMON, RECEIVE_POKEMON_ERRORS } from '../actions/pokemon_actions';
 import { START_LOADING_ALL_POKEMON, START_LOADING_SINGLE_POKEMON } from '../actions/loading_actions';
 import merge from 'lodash/merge';
 
@@ -11,6 +11,7 @@ const loadingReducer = (state = {all: true, single: true}, action) => {
     case RECEIVE_ALL_POKEMON:
       return merge({}, state, {all: false});
     case RECEIVE_POKEMON:
+    case RECEIVE_POKEMON_ERRORS:
       return merge({}, state, {single: false});
     default:
       return state;

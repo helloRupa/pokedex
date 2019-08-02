@@ -44,8 +44,12 @@ export const requestPokemon = (id) => (dispatch) => {
       if (pokemon.items) {
         dispatch(receiveItems(pokemon.items));
       }
-    })
-  };
+    },
+    (errors) => {
+      dispatch(receivePokemonErrors(errors.responseJSON));
+      $.Deferred().reject(errors.responseJSON);
+    });
+};
 
 export const createPokemon = (data) => (dispatch) => (
   APIUtil.createPokemon(data)

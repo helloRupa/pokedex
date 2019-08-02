@@ -16,7 +16,12 @@ class Api::PokemonController < ApplicationController
 
   def show
     @pokemon = Pokemon.find_by_id(params[:id])
-    render :show
+
+    if @pokemon
+      render :show
+    else
+      render json: ['Pokemon does not exist'], status: 422
+    end
   end
 
   def update

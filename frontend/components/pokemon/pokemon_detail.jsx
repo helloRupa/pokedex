@@ -9,13 +9,20 @@ class PokemonDetail extends React.Component {
     this.pokemonDetail = this.pokemonDetail.bind(this);
   }
 
+  fetchPokemon() {
+    this.props.requestPokemon(this.props.pokeId)
+      .fail((err) => {
+        this.props.history.push('/404');
+    });
+  }
+
   componentDidMount() {
-    this.props.requestPokemon(this.props.pokeId);
+    this.fetchPokemon();
   }
 
   componentDidUpdate(prevProps) {
     if (prevProps.match.params.pokemonId !== this.props.pokeId) {
-      this.props.requestPokemon(this.props.pokeId);
+      this.fetchPokemon();
     }
   }
 

@@ -6,4 +6,6 @@ Rails.application.routes.draw do
   end
 
   root to: 'static_pages#root'
+
+  get "/*anything", to: redirect('/#/404')
 end
