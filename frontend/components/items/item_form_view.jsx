@@ -14,6 +14,12 @@ class ItemFormView extends React.Component {
     this.update = this.update.bind(this);
     this.imageRadioButtons = this.imageRadioButtons.bind(this);
     this.props.clearItemErrors();
+    this.urls = {
+      pokemon_berry: window.pokemonBerryURL,
+      pokemon_egg: window.pokemonEggURL,
+      pokemon_potion: window.pokemonPotionURL,
+      pokemon_super_potion: window.pokemonSuperPotionURL
+    };
   }
 
   initialState() {
@@ -46,7 +52,7 @@ class ItemFormView extends React.Component {
       return (
         <div key={item} className="item-images">
           <input type="radio" name="image_url" value={url} id={item} onClick={this.update}></input>
-          <label htmlFor={item}><img src={url} title={item}></img></label>
+          <label htmlFor={item}><img src={this.urls[item]} title={item}></img></label>
         </div>
       );
     });
