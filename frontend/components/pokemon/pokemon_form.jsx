@@ -43,7 +43,7 @@ class PokemonForm extends React.Component {
   render() {
     return (
       <div className="poke-form">
-        <img src="/assets/pokemon-logo.svg"></img>
+        <img src="{window.pokemonLogoURL}"></img>
 
       <form onSubmit={this.handleSubmit}>
         
