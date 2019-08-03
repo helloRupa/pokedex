@@ -51,7 +51,7 @@ class ItemFormView extends React.Component {
 
       return (
         <div key={item} className="item-images">
-          <input type="radio" name="image_url" value={url} id={item} onClick={this.update}></input>
+          <input type="radio" name="image_url" value={`${item}.svg`} id={item} onClick={this.update}></input>
           <label htmlFor={item}><img src={this.urls[item]} title={item}></img></label>
         </div>
       );

@@ -31,15 +31,17 @@ class PokemonDetail extends React.Component {
       return <Loading />
     }
 
-    return (
-      <PokemonDetailView 
-        details={this.props.pokemon} 
-        items={this.props.items} 
-        pokeId={this.props.pokeId}
-        errors={this.props.errors}
-        updatePokemon={this.props.updatePokemon}
-        clearPokemonErrors={this.props.clearPokemonErrors} />
-    );
+    if (this.props.pokemon.hasOwnProperty('name')) {
+      return (
+        <PokemonDetailView 
+          details={this.props.pokemon} 
+          items={this.props.items} 
+          pokeId={this.props.pokeId}
+          errors={this.props.errors}
+          updatePokemon={this.props.updatePokemon}
+          clearPokemonErrors={this.props.clearPokemonErrors} />
+      );
+    }
   }
 
   render() {
