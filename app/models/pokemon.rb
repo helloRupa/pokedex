@@ -29,7 +29,8 @@ class Pokemon < ApplicationRecord
   has_many :items
 
   def image_exists
-    return if %w[http:// https:// www.].any? {|pre| self.image_url.start_with?(pre)}
+    return if %w[http:// https:// www.].any? {|pre| self.image_url.start_with?(pre)} &&
+      %w[svg jpg png jpeg gif].any? {|suff| self.image_url.ends_with?(suff)}
 
     if !File.exist?(IMAGE_ROOT_PATH + self.image_url)
       self.errors.add(:image_url, 'file must exist or format must be URL')
