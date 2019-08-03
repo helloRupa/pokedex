@@ -31,8 +31,7 @@ export const requestAllPokemon = () => (dispatch) => {
   dispatch(Load.startLoadingAllPokemon);
 
   return APIUtil.fetchAllPokemon()
-    .then(pokemon => {dispatch(receiveAllPokemon(pokemon)); console.log(pokemon); console.log(pokemon.pokemon);},
-    (err) => console.log(err.responseJSON))
+    .then(pokemon => dispatch(receiveAllPokemon(pokemon)))
 };
 
 export const requestPokemon = (id) => (dispatch) => {
